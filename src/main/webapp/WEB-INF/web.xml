@@ -1,7 +1,29 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>ItemFindAllServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.controller.ItemFindAllServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ItemFindAllServlet</servlet-name>
+    <url-pattern>/find.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ItemUpdateServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.controller.ItemUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ItemUpdateServlet</servlet-name>
+    <url-pattern>/update.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ItemAddServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.controller.ItemAddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ItemAddServlet</servlet-name>
+    <url-pattern>/add.do</url-pattern>
+  </servlet-mapping>
 </web-app>
