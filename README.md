@@ -1,5 +1,5 @@
 # Todo List
-[![Build Status](https://travis-ci.com/EvgeniyDanisevich/job4j_todo.svg?branch=main)](https://travis-ci.com/EvgeniyDanisevich/job4j_todo)
+[![Build Status](https://travis-ci.com/EvgeniyDanisevich/job4j_todo.svg?branch=master)](https://travis-ci.com/EvgeniyDanisevich/job4j_todo)
 
 В приложении единственная html-страница (index.html), на которой отображается поле для добавления в таблицу задания с описанием. 
 При введении текста в поле и нажатии на кнопку "Сохранить" задание попадает в таблицу в нижней части страницы.
