@@ -6,8 +6,12 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.Model;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.store.Store;
+
 import java.util.function.Function;
 
 import java.util.Collection;
@@ -41,16 +45,30 @@ public class HbmStore implements Store, AutoCloseable {
 
     @Override
     public Collection<Item> findAll() {
-        return this.tx(session -> session.createQuery("from Item").list());
+        return this.tx(session -> session.createQuery("from Item").list()
+        );
     }
 
     @Override
-    public Item findById(int id) {
-        return this.tx(session -> session.get(Item.class, id));
+    public void save(Model model) {
+        this.tx(session -> session.save(model));
     }
 
     @Override
-    public void save(Item item) {
-        this.tx(session -> session.save(item));
+    public Item changeDone(Integer id) {
+        return this.tx(session -> {
+            Item item = session.get(Item.class, id);
+            item.setDone(!item.isDone());
+            return item;
+        });
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return (User) this.tx(session -> {
+            final Query query = session.createQuery("from User where email=:email");
+            query.setParameter("email", email);
+            return query.uniqueResult();
+        });
     }
 }
