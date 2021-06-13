@@ -21,7 +21,108 @@
     <title>TODO list</title>
 </head>
 <body>
+<!-- Login / Register Form-->
+<div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Modal cascading tabs-->
+            <div class="modal-c-tabs">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user mr-1"></i>
+                            Вход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#panel8" role="tab"><i class="fas fa-user-plus mr-1"></i>
+                            Регистрация</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panels -->
+                <div class="tab-content">
+                    <!--Panel 7-->
+                    <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+
+                        <!--Body-->
+                        <div class="modal-body mb-1">
+                            <form action="/todo/auth.do" method="post" id="authForm">
+                            <div class="md-form form-sm mb-5">
+                                <i class="fas fa-envelope prefix"></i>
+                                <input type="email" name="authEmail" id="authEmail" class="form-control form-control-sm validate">
+                                <label data-error="wrong" data-success="right" for="authEmail">Ваша электронная почта</label>
+                            </div>
+
+                            <div class="md-form form-sm mb-4">
+                                <i class="fas fa-lock prefix"></i>
+                                <input type="password" name="authPassword" id="authPassword" class="form-control form-control-sm validate">
+                                <label data-error="wrong" data-success="right" for="authPassword" >Ваш пароль</label>
+                            </div>
+                            <div class="text-center mt-2">
+                                <button type="submit" class="btn btn-primary" id="auth" onclick="return validateAndAuth()">Войти <i class="fas fa-sign-in ml-1"></i></button>
+                            </div>
+                            </form>
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-primary waves-effect ml-auto" data-dismiss="modal">Закрыть</button>
+                        </div>
+
+                    </div>
+                    <!--/.Panel 7-->
+
+                    <!--Panel 8-->
+                    <div class="tab-pane fade" id="panel8" role="tabpanel">
+
+                        <!--Body-->
+                        <div class="modal-body">
+                            <form action="/todo/reg.do" method="post" id="regForm">
+                            <div class="md-form form-sm mb-5">
+                                <i class="fas fa-envelope prefix"></i>
+                                <input type="text" name="regName" id="regName" class="form-control form-control-sm validate">
+                                <label data-error="wrong" data-success="right" for="regName">Ваш логин</label>
+                            </div>
+
+                            <div class="md-form form-sm mb-5">
+                                <i class="fas fa-envelope prefix"></i>
+                                <input type="email" name="regEmail" id="regEmail" class="form-control form-control-sm validate">
+                                <label data-error="wrong" data-success="right" for="regEmail">Ваша электронная почта</label>
+                            </div>
+
+                            <div class="md-form form-sm mb-5">
+                                <i class="fas fa-lock prefix"></i>
+                                <input type="password" name="regPassword" id="regPassword" class="form-control form-control-sm validate">
+                                <label data-error="wrong" data-success="right" for="regPassword">Ваш пароль</label>
+                            </div>
+                            <div class="text-center form-sm mt-2">
+                                <button type="submit" class="btn btn-primary" id="reg"  onclick="return validateAndReg()">Зарегистрироваться <i class="fas fa-sign-in ml-1"></i></button>
+                            </div>
+                            </form>
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-primary waves-effect ml-auto" data-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                    <!--/.Panel 8-->
+                </div>
+
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- Login / Register Form-->
+
+<div id="logReg" class="text-center">
+
+</div>
+
 <br>
+
 <div class="container">
     <div class="row">
         <div class="card" style="width: 100%">
@@ -52,7 +153,8 @@
                     <thead class="table-light">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col"  style="width:50%">Описание</th>
+                        <th scope="col"  style="width:40%">Описание</th>
+                        <th scope="col">Автор</th>
                         <th scope="col">Время создания</th>
                         <th scope="col">Состояние выполнения</th>
                     </tr>
@@ -61,6 +163,7 @@
                     <tr>
                         <td></td>
                         <td>Пожалуйста, подождите ...</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>
