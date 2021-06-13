@@ -26,4 +26,28 @@
     <servlet-name>ItemAddServlet</servlet-name>
     <url-pattern>/add.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>RgServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.controller.RegServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RgServlet</servlet-name>
+    <url-pattern>/reg.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AuthServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.controller.AuthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthServlet</servlet-name>
+    <url-pattern>/auth.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.controller.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout.do</url-pattern>
+  </servlet-mapping>
 </web-app>
