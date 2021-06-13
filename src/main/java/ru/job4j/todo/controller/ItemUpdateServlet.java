@@ -1,6 +1,5 @@
 package ru.job4j.todo.controller;
 
-import ru.job4j.todo.model.Item;
 import ru.job4j.todo.store.Store;
 import ru.job4j.todo.store.db.HbmStore;
 
@@ -14,8 +13,6 @@ public class ItemUpdateServlet extends HttpServlet {
         resp.setContentType("text/plain");
         resp.setCharacterEncoding("UTF-8");
         Store store = new HbmStore();
-        Item item = new HbmStore().findById(Integer.parseInt(req.getParameter("id")));
-        item.setDone(!item.isDone());
-        store.save(item);
+        store.changeDone(Integer.parseInt(req.getParameter("id")));
     }
 }
