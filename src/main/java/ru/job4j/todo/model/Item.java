@@ -6,37 +6,45 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item implements Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String description;
     private Timestamp created;
     private boolean done;
 
+    public Item(User user, String description, Timestamp created, boolean done) {
+        this.user = user;
+        this.description = description;
+        this.created = created;
+        this.done = done;
+    }
+
     public Item() {
     }
 
-    public Item(String description, Timestamp created, boolean done) {
-        this.description = description;
-        this.created = created;
-        this.done = done;
-    }
-
-    public Item(int id, String description, Timestamp created, boolean done) {
-        this.id = id;
-        this.description = description;
-        this.created = created;
-        this.done = done;
-    }
-
-    public int getId() {
+    @Override
+    public Integer getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDescription() {
@@ -74,22 +82,13 @@ public class Item {
         Item item = (Item) o;
         return id == item.id
                 && done == item.done
+                && Objects.equals(user, item.user)
                 && Objects.equals(description, item.description)
                 && Objects.equals(created, item.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, created, done);
-    }
-
-    @Override
-    public String toString() {
-        return "Item{"
-                + "id=" + id
-                + ", description='" + description + '\''
-                + ", created=" + created
-                + ", done=" + done
-                + '}';
+        return Objects.hash(id, user, description, created, done);
     }
 }
