@@ -65,7 +65,7 @@ function findAll(showAll) {
                         '<td>' + val.description + '</td>' +
                         '<td>' + formatDate(new Date(val.created)) + '</td>' +
                         '<td><div class="form-check">' +
-                        '<input class="form-check-input" type="checkbox" value="" id="' + val.id + '" checked>' +
+                        '<input class="form-check-input" type="checkbox" value="" id="' + val.id + '" checked disabled>' +
                         '</div></td></tr>');
                 }
             }

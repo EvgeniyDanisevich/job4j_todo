@@ -46,8 +46,9 @@ public class HbmStore implements Store, AutoCloseable {
     public void save(Item item) {
         if (item.getId() == 0) {
             add(item);
+        } else {
+            update(item);
         }
-        update(item);
     }
 
     private void add(Item item) {
