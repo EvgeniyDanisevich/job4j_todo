@@ -135,6 +135,13 @@
                         <label for="description">Описание</label>
                         <textarea class="form-control" id="description" placeholder="Введите описание" name="description"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="categories">Выберите категорию</label>
+                        <div>
+                            <select id="categories" class="form-control" name="categories" multiple>
+                            </select>
+                        </div>
+                    </div>
                     <button type="reset" class="btn btn-primary" id="add">Сохранить</button>
                 </form>
             </div>
@@ -154,6 +161,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col"  style="width:40%">Описание</th>
+                        <th scope="col">Категория</th>
                         <th scope="col">Автор</th>
                         <th scope="col">Время создания</th>
                         <th scope="col">Состояние выполнения</th>
@@ -163,6 +171,7 @@
                     <tr>
                         <td></td>
                         <td>Пожалуйста, подождите ...</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

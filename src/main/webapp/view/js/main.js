@@ -31,8 +31,8 @@ $(document).ready(function () {
 });
 
 function validateAndAdd() {
-    if ($('#description').val() == '') {
-        alert('Введите описание');
+    if ($('#description').val() === '' || $('#categories').val() === '') {
+        alert('Введите описание и выберите категорию');
         return false;
     }
     addTask();
@@ -40,14 +40,18 @@ function validateAndAdd() {
 }
 
 function addTask() {
-    $.get("http://localhost:8080/todo/add.do", {
-        description: $('#description').val()
+    $.ajax({
+        type: 'POST',
+        crossDomain: true,
+        url: 'http://localhost:8080/todo/add.do',
+        dataType: 'text',
+        data: ({description: $('#description').val(), categories: $('#categories').val()})
     }).done(function (response) {
         console.log("Response data: " + response);
     }).fail(function (err) {
         alert('Request failed');
         console.log("Request failed: " + err);
-    });
+    })
 }
 
 function findAll(showAll) {
@@ -55,11 +59,12 @@ function findAll(showAll) {
     ).done(function (response) {
         let rows = [];
         $.each(response, function (key, val) {
-            if (showAll == false) {
-                if (val.done == false) {
+            if (showAll === false) {
+                if (val.done === false) {
                     rows.push('<tr>' +
                         '<td>' + val.id + '</td>' +
                         '<td>' + val.description + '</td>' +
+                        '<td>' + formatCategories(val.categories) + '</td>' +
                         '<td>' + val.user.name + '</td>' +
                         '<td>' + formatDate(new Date(val.created)) + '</td>' +
                         '<td><div class="form-check">' +
@@ -67,10 +72,11 @@ function findAll(showAll) {
                         '</div></td></tr>');
                 }
             } else {
-                if (val.done == false) {
+                if (val.done === false) {
                     rows.push('<tr>' +
                         '<td>' + val.id + '</td>' +
                         '<td>' + val.description + '</td>' +
+                        '<td>' + formatCategories(val.categories) + '</td>' +
                         '<td>' + val.user.name + '</td>' +
                         '<td>' + formatDate(new Date(val.created)) + '</td>' +
                         '<td><div class="form-check">' +
@@ -80,6 +86,7 @@ function findAll(showAll) {
                     rows.push('<tr>' +
                         '<td>' + val.id + '</td>' +
                         '<td>' + val.description + '</td>' +
+                        '<td>' + formatCategories(val.categories) + '</td>' +
                         '<td>' + val.user.name + '</td>' +
                         '<td>' + formatDate(new Date(val.created)) + '</td>' +
                         '<td><div class="form-check">' +
@@ -105,6 +112,15 @@ function formatDate(date) {
     if (mm < 10) mm = '0' + mm;
     let yy = date.getFullYear();
     return dd + '.' + mm + '.' + yy;
+}
+
+function formatCategories(categories) {
+    let count = categories.length;
+    let result = '';
+    for (let i = 0; i < count; i++) {
+        result = result + categories[i].name + '<br>';
+    }
+    return result;
 }
 
 function update(id, showAll) {
@@ -167,3 +183,23 @@ function logout() {
         console.log("Request failed: " + err);
     });
 }
+
+$(document).ready(function () {
+    getCategories();
+    function getCategories() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/todo/category.do',
+            dataType: 'json'
+        }).done(function(data) {
+            let count = data.length;
+            let result = '';
+            for (let i = 0; i < count; i++) {
+                let category = data[i];
+                result += '<option value=' + category.id + '>' + category.name + '</option>'
+                document.getElementById('categories').innerHTML = result;
+            }
+        }).fail(function(err) {
+        });
+    }
+});
