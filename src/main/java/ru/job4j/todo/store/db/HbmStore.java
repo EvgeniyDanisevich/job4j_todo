@@ -7,6 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+import ru.job4j.todo.model.Category;
 import ru.job4j.todo.model.Item;
 import ru.job4j.todo.model.Model;
 import ru.job4j.todo.model.User;
@@ -45,7 +46,8 @@ public class HbmStore implements Store, AutoCloseable {
 
     @Override
     public Collection<Item> findAll() {
-        return this.tx(session -> session.createQuery("from Item").list()
+        return this.tx(session -> session.createQuery(
+                "select distinct i from Item i join fetch i.categories order by i.id").list()
         );
     }
 
@@ -69,6 +71,23 @@ public class HbmStore implements Store, AutoCloseable {
             final Query query = session.createQuery("from User where email=:email");
             query.setParameter("email", email);
             return query.uniqueResult();
+        });
+    }
+
+    @Override
+    public Collection<Category> allCategory() {
+        return this.tx(session -> session.createQuery("from Category").list());
+    }
+
+    @Override
+    public void addNewCategory(Item item, String[] ids) {
+        this.tx(session -> {
+            for (String id : ids) {
+                Category findCategory = session.find(Category.class, Integer.parseInt(id));
+                item.addCategory(findCategory);
+            }
+            session.save(item);
+            return item;
         });
     }
 }

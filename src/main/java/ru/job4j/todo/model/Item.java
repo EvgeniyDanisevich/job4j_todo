@@ -1,7 +1,11 @@
 package ru.job4j.todo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +20,10 @@ public class Item implements Model {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonProperty("categories")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private final List<Category> categories = new ArrayList<>();
+
     private String description;
     private Timestamp created;
     private boolean done;
@@ -28,6 +36,10 @@ public class Item implements Model {
     }
 
     public Item() {
+    }
+
+    public void addCategory(Category category) {
+        this.categories.add(category);
     }
 
     @Override
