@@ -66,7 +66,7 @@ function findAll(showAll) {
                         '<td>' + val.description + '</td>' +
                         '<td>' + formatCategories(val.categories) + '</td>' +
                         '<td>' + val.user.name + '</td>' +
-                        '<td>' + formatDate(new Date(val.created)) + '</td>' +
+                        '<td>' + formatDate(val.created) + '</td>' +
                         '<td><div class="form-check">' +
                         '<input class="form-check-input" type="checkbox" value="" id="' + val.id + '">' +
                         '</div></td></tr>');
@@ -78,7 +78,7 @@ function findAll(showAll) {
                         '<td>' + val.description + '</td>' +
                         '<td>' + formatCategories(val.categories) + '</td>' +
                         '<td>' + val.user.name + '</td>' +
-                        '<td>' + formatDate(new Date(val.created)) + '</td>' +
+                        '<td>' + formatDate(val.created) + '</td>' +
                         '<td><div class="form-check">' +
                         '<input class="form-check-input" type="checkbox" value="" id="' + val.id + '">' +
                         '</div></td></tr>');
@@ -88,7 +88,7 @@ function findAll(showAll) {
                         '<td>' + val.description + '</td>' +
                         '<td>' + formatCategories(val.categories) + '</td>' +
                         '<td>' + val.user.name + '</td>' +
-                        '<td>' + formatDate(new Date(val.created * 1000)) + '</td>' +
+                        '<td>' + formatDate(val.created) + '</td>' +
                         '<td><div class="form-check">' +
                         '<input class="form-check-input" type="checkbox" value="" id="' + val.id + '" checked disabled>' +
                         '</div></td></tr>');
@@ -105,7 +105,8 @@ function findAll(showAll) {
     });
 }
 
-function formatDate(date) {
+function formatDate(d) {
+    let date = new Date(d);
     let dd = date.getDate();
     if (dd < 10) dd = '0' + dd;
     let mm = date.getMonth() + 1;
@@ -117,7 +118,7 @@ function formatDate(date) {
     if (mmm < 10) mmm = '0' + mmm;
     let ss = date.getSeconds();
     if (ss < 10) ss = '0' + ss;
-    return dd + '.' + mm + '.' + yy + ' ' + hh + ':' + mmm + ':' + ss;
+    return dd + '.' + mm + '.' + yy + ' ' + hh + '\:' + mmm + '\:' + ss;
 }
 
 function formatCategories(categories) {
