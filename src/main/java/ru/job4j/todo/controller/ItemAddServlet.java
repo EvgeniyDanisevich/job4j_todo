@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Timestamp;
 
 public class ItemAddServlet extends HttpServlet {
     @Override
@@ -24,7 +23,7 @@ public class ItemAddServlet extends HttpServlet {
         String description = req.getParameter("description");
         String[] categories = req.getParameterValues("categories[]");
         User user = (User) session.getAttribute("user");
-        Item item = new Item(user, description, new Timestamp(System.currentTimeMillis()), false);
+        Item item = new Item(user, description, false);
         store.addNewCategory(item, categories);
     }
 }

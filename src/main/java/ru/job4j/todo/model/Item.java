@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,13 +26,15 @@ public class Item implements Model {
     private final List<Category> categories = new ArrayList<>();
 
     private String description;
-    private Timestamp created;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
     private boolean done;
 
-    public Item(User user, String description, Timestamp created, boolean done) {
+    public Item(User user, String description, boolean done) {
         this.user = user;
         this.description = description;
-        this.created = created;
+        this.created = new Date(System.currentTimeMillis());
         this.done = done;
     }
 
@@ -67,7 +70,7 @@ public class Item implements Model {
         this.description = description;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 

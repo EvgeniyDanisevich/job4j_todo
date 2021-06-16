@@ -13,6 +13,7 @@ import ru.job4j.todo.model.Model;
 import ru.job4j.todo.model.User;
 import ru.job4j.todo.store.Store;
 
+import java.util.TimeZone;
 import java.util.function.Function;
 
 import java.util.Collection;
@@ -25,7 +26,10 @@ public class HbmStore implements Store, AutoCloseable {
             .buildMetadata().buildSessionFactory();
 
     private <T> T tx(final Function<Session, T> command) {
-        final Session session = sf.openSession();
+        final Session session = sf
+                .withOptions()
+                .jdbcTimeZone(TimeZone.getTimeZone("UTC"))
+                .openSession();
         final Transaction tx = session.beginTransaction();
         try {
             T rsl = command.apply(session);

@@ -88,7 +88,7 @@ function findAll(showAll) {
                         '<td>' + val.description + '</td>' +
                         '<td>' + formatCategories(val.categories) + '</td>' +
                         '<td>' + val.user.name + '</td>' +
-                        '<td>' + formatDate(new Date(val.created)) + '</td>' +
+                        '<td>' + formatDate(new Date(val.created * 1000)) + '</td>' +
                         '<td><div class="form-check">' +
                         '<input class="form-check-input" type="checkbox" value="" id="' + val.id + '" checked disabled>' +
                         '</div></td></tr>');
@@ -111,7 +111,13 @@ function formatDate(date) {
     let mm = date.getMonth() + 1;
     if (mm < 10) mm = '0' + mm;
     let yy = date.getFullYear();
-    return dd + '.' + mm + '.' + yy;
+    let hh = date.getHours();
+    if (hh < 10) hh = '0' + hh;
+    let mmm = date.getMinutes();
+    if (mmm < 10) mmm = '0' + mmm;
+    let ss = date.getSeconds();
+    if (ss < 10) ss = '0' + ss;
+    return dd + '.' + mm + '.' + yy + ' ' + hh + ':' + mmm + ':' + ss;
 }
 
 function formatCategories(categories) {
